@@ -450,14 +450,11 @@ echo "面板地址: $PANEL_URL"
 echo "首次打开面板需要设置管理密码。"
 echo "如面板无法访问,可在路由器管理界面(LuCI)→ 服务 → Open-Box 中查看/重启服务,或使用紧急停止恢复直连。"
 echo ""
-# =================================================================
-# 专属纯净版私人定制：安装后自动全盘清洗、重定向广告链接和重写顶栏汉字
-# =================================================================
 if [ -d "/opt/open-box/panel/dist/assets" ]; then
-    # 1. 强改汉字：把底层打包混淆后的“安格超市”十六进制码，在安装完的瞬间全局强写成“我的主页”
+    # 1. 强改汉字：底层全局强写混淆汉字为“我的主页”
     sed -i 's/\\xe5\\xae\\x89\\xe6\\xa0\\xbc\\xe8\\xb6\\x85\\xe5\\xb8\\x82/我的主页/g' /opt/open-box/panel/dist/assets/*.js
 
-    # 2. 强改跳转链接：把所有去往安格超市、OPENDOOR、旧版 AI 的广告链接，全局重定向到你的专属平台
+    # 2. 强改跳转链接：把抓到的精确原始广告长网址，无条件全局洗成你的超级门禁网址
     sed -i 's|https://angeworld.cc|https://superdoor.top|g' /opt/open-box/panel/dist/assets/*.js
     sed -i 's|https://opendoor.sbs|https://superdoor.top|g' /opt/open-box/panel/dist/assets/*.js
 fi
